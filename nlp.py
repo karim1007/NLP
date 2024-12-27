@@ -12,7 +12,7 @@ MODEL_CONFIGS = [
         'name': 'bert-base-uncased',
         'tokenizer_class': BertTokenizer,
         'model_class': BertModel,
-        'weight': 0.25  # Configurable weight for each model
+        'weight': 0.5  # Configurable weight for each model
     },
     {
         'name': 'roberta-base',
@@ -20,12 +20,7 @@ MODEL_CONFIGS = [
         'model_class': RobertaModel,
         'weight': 0.5
     },
-    {
-        'name': 'albert-base-v2',
-        'tokenizer_class': AlbertTokenizer,
-        'model_class': AlbertModel,
-        'weight': 0.25
-    }
+   
 ]
 # Initialize models and tokenizers
 def initialize_models():
@@ -416,6 +411,7 @@ Consider the provided semantic similarities as an additional factor in your eval
 Focus primarily on experience and skills. Be objective and provide constructive insights.
 Consider these weights
 "work_experience": 0.5, "skills": 0.3, "education": 0.2, "summary": 0.1, "projects": 0.2, "certifications": 0.1
+Do not care about formatting
 """
 
     response = client.chat.completions.create(
@@ -465,7 +461,7 @@ def llm_processor(search_results):
         similarities = {
             'bert-base-uncased': row['bert-base-uncased_similarity'],
             'roberta-base': row['roberta-base_similarity'],
-            'albert-base-v2': row['albert-base-v2_similarity'],
+            #'albert-base-v2': row['albert-base-v2_similarity'],
             'combined': row['combined_similarity']
         }
         
@@ -508,7 +504,8 @@ def evaluate_llama_output_with_gpt4(llama_evaluation, candidate_resume, job_desc
 
     Please provide a critical analysis of the LLaMA evaluation.
     Focus on the accuracy, thoroughness, and relevance of LLaMA's output.
-    Suggest areas of improvement and give a final recommendation (e.g., hire/do not hire).
+    Suggest areas of improvement and give a final recommendation (e.g., hire/do not hire)
+    Do not care about formatting.
     """
 
     # Create a client instance to interact with GPT-4
@@ -542,7 +539,6 @@ def process_resume(job_description, resume_file):
         llama_evaluation = f"""
         BERT Similarity: {row['bert-base-uncased_similarity']:.4f}
         RoBERTa Similarity: {row['roberta-base_similarity']:.4f}
-        ALBERT Similarity: {row['albert-base-v2_similarity']:.4f}
         Combined Similarity: {row['combined_similarity']:.4f}
         """
         candidate_resume = row['resume_content']
