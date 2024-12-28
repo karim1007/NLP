@@ -6,6 +6,14 @@ import textract
 import os
 import numpy as np
 import pandas as pd
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from the .env file
+load_dotenv()
+
+# Fetch the API key
+api_key = os.getenv("API_KEY")
 # Model configurations
 MODEL_CONFIGS = [
     {
@@ -331,7 +339,7 @@ def generate_ideal_resume(job_description):
     Returns:
         str: Ideal resume text
     """
-    client = together.Together(api_key='804be1d7c2ed8aae76e383e83f5b28c1f2101d7fb4e31d15bf566f43029c44a1')
+    client = together.Together(api_key=api_key)
     
     # Prompt to generate an ideal resume
     prompt = f"""You are an expert resume writer. Create an ideal resume for the following job description:
@@ -378,7 +386,7 @@ def evaluate_resume(ideal_resume, candidate_resume, job_description, filename, s
     Returns:
         str: Evaluation summary
     """
-    client = together.Together(api_key='804be1d7c2ed8aae76e383e83f5b28c1f2101d7fb4e31d15bf566f43029c44a1')
+    client = together.Together(api_key=api_key)
     
     # Prepare similarity information
     similarity_info = "\n".join([
