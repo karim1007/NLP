@@ -316,15 +316,6 @@ def process_files(query, files):
     
     return output
 
-def parse_resumes(files):
-    # Convert uploaded files to resumes dictionary
-    resumes = {}
-    for file in files:
-        # Extract text from the file
-        text = extract_text_from_file(file.name)
-        resumes[os.path.basename(file.name)] = text
-    
-    return resumes
 
 import together
 import pandas as pd
@@ -565,9 +556,9 @@ def process_resume(job_description, resume_file):
     formatted_gpt4_output = "\n\n".join(gpt4_evaluations)
     
     # Clean up the LLM Processor Output to format text properly (replacing \n with actual line breaks)
-    llm_output = evaluations[0].replace("\\n", "\n")  # Ensure newlines are rendered correctly
+    evaluations=  " \n\n".join(evaluations)
     
-    return output, llm_output, formatted_gpt4_output
+    return output, evaluations, formatted_gpt4_output
 
 with gr.Blocks() as demo:
     # Add a title to the interface
