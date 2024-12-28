@@ -565,8 +565,8 @@ with gr.Blocks() as demo:
     # Add a title to the interface
     gr.Markdown(
         """
-        # Resume Evaluation Tool
-        Upload resumes and provide a job description to get similarity evaluations and detailed feedback.
+        ## Resume Evaluation Tool ✅
+        Upload resumes and provide a job description to get similarity evaluations and detailed feedback. 📄
         """
     )
     
